@@ -1,0 +1,248 @@
+{
+  "as_of": "2020-12-31",
+  "status": "PASS",
+  "n_checks": 33,
+  "sections": {
+    "DATA": [
+      {
+        "check": "symbols_received",
+        "status": "PASS",
+        "value": 60,
+        "threshold": null,
+        "detail": ""
+      },
+      {
+        "check": "rows",
+        "status": "PASS",
+        "value": 150900,
+        "threshold": null,
+        "detail": ""
+      },
+      {
+        "check": "duplicate_observations",
+        "status": "PASS",
+        "value": 0,
+        "threshold": 1,
+        "detail": ""
+      },
+      {
+        "check": "null_prices",
+        "status": "PASS",
+        "value": 0,
+        "threshold": 10,
+        "detail": ""
+      },
+      {
+        "check": "non_positive_prices",
+        "status": "PASS",
+        "value": 0,
+        "threshold": 1,
+        "detail": ""
+      },
+      {
+        "check": "impossible_ohlc",
+        "status": "PASS",
+        "value": 0,
+        "threshold": 1,
+        "detail": ""
+      },
+      {
+        "check": "stale_prices",
+        "status": "PASS",
+        "value": 0,
+        "threshold": 10,
+        "detail": ""
+      },
+      {
+        "check": "longest_stale_run_days",
+        "status": "PASS",
+        "value": 2,
+        "threshold": 10,
+        "detail": "consecutive identical closes for one symbol"
+      },
+      {
+        "check": "extreme_return_alerts",
+        "status": "PASS",
+        "value": 0,
+        "threshold": 25,
+        "detail": ""
+      },
+      {
+        "check": "missing_symbols",
+        "status": "PASS",
+        "value": 0,
+        "threshold": 1,
+        "detail": ""
+      },
+      {
+        "check": "symbols_missing_sessions",
+        "status": "PASS",
+        "value": 0,
+        "threshold": 5,
+        "detail": ""
+      },
+      {
+        "check": "calendar_mismatch",
+        "status": "PASS",
+        "value": 0,
+        "threshold": 10,
+        "detail": ""
+      }
+    ],
+    "STRATEGY": [
+      {
+        "check": "active_pairs",
+        "status": "PASS",
+        "value": 3,
+        "threshold": null,
+        "detail": ""
+      },
+      {
+        "check": "monitored_pairs",
+        "status": "PASS",
+        "value": 16,
+        "threshold": null,
+        "detail": ""
+      },
+      {
+        "check": "new_signals",
+        "status": "PASS",
+        "value": 0,
+        "threshold": null,
+        "detail": ""
+      },
+      {
+        "check": "exits",
+        "status": "PASS",
+        "value": 0,
+        "threshold": null,
+        "detail": ""
+      },
+      {
+        "check": "spread_beyond_4_sigma",
+        "status": "PASS",
+        "value": 0,
+        "threshold": 3,
+        "detail": ""
+      },
+      {
+        "check": "pairs_without_zscore",
+        "status": "PASS",
+        "value": 0,
+        "threshold": 3,
+        "detail": ""
+      }
+    ],
+    "RISK": [
+      {
+        "check": "gross_exposure_pct",
+        "status": "PASS",
+        "value": 0.0,
+        "threshold": 100.0,
+        "detail": ""
+      },
+      {
+        "check": "net_exposure_pct",
+        "status": "PASS",
+        "value": 0.0,
+        "threshold": null,
+        "detail": ""
+      },
+      {
+        "check": "current_drawdown_pct",
+        "status": "PASS",
+        "value": 0.17,
+        "threshold": 10.0,
+        "detail": ""
+      }
+    ],
+    "TRADING": [
+      {
+        "check": "expected_orders",
+        "status": "PASS",
+        "value": 340,
+        "threshold": null,
+        "detail": ""
+      },
+      {
+        "check": "executed_orders",
+        "status": "PASS",
+        "value": 340,
+        "threshold": null,
+        "detail": ""
+      },
+      {
+        "check": "missing_fills",
+        "status": "PASS",
+        "value": 0,
+        "threshold": 1,
+        "detail": ""
+      },
+      {
+        "check": "unexpected_fills",
+        "status": "PASS",
+        "value": 0,
+        "threshold": 1,
+        "detail": ""
+      },
+      {
+        "check": "duplicate_fills",
+        "status": "PASS",
+        "value": 0,
+        "threshold": 1,
+        "detail": ""
+      },
+      {
+        "check": "quantity_mismatches",
+        "status": "PASS",
+        "value": 0,
+        "threshold": 3,
+        "detail": ""
+      },
+      {
+        "check": "symbol_mismatches",
+        "status": "PASS",
+        "value": 0,
+        "threshold": 1,
+        "detail": ""
+      },
+      {
+        "check": "price_deviations",
+        "status": "PASS",
+        "value": 0,
+        "threshold": 10,
+        "detail": ""
+      }
+    ],
+    "RECONCILIATION": [
+      {
+        "check": "expected_positions",
+        "status": "PASS",
+        "value": 340,
+        "threshold": null,
+        "detail": ""
+      },
+      {
+        "check": "actual_positions",
+        "status": "PASS",
+        "value": 340,
+        "threshold": null,
+        "detail": ""
+      },
+      {
+        "check": "matched",
+        "status": "PASS",
+        "value": 340,
+        "threshold": null,
+        "detail": ""
+      },
+      {
+        "check": "total_breaks",
+        "status": "PASS",
+        "value": 0,
+        "threshold": 3,
+        "detail": ""
+      }
+    ]
+  }
+}

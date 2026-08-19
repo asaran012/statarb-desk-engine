@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "statarb-desk-engine"
+version = "0.1.0"
+description = "Systematic statistical-arbitrage research, backtesting and desk-monitoring platform"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.26",
+    "pandas>=2.1",
+    "scipy>=1.11",
+    "statsmodels>=0.14",
+    "duckdb>=0.10",
+    "pyarrow>=14",
+    "matplotlib>=3.8",
+    "pydantic>=2.5",
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4", "pytest-cov>=4.1"]
+market = ["yfinance>=0.2.40"]
+
+[project.scripts]
+statarb = "statarb.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+markers = ["slow: long-running integration tests"]
+
+[tool.coverage.run]
+source = ["src/statarb"]
+omit = ["*/downloader.py"]
