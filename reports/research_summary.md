@@ -21,14 +21,14 @@ was computed with knowledge of the test period.
 |---|---|
 | universe eligible | 60 |
 | all possible pairs | 1,770 |
-| corr >= 0.6 | 78 |
-| cointegration tests run | 78 |
-| naive p < 0.05 | 43 |
-| BH-FDR q < 0.05 | 34 |
-| residual ADF p < 0.05 | 34 |
-| half-life in [2,60]d | 34 |
-| stability >= 50% | 18 |
-| selected | 18 |
+| corr >= 0.6 | 75 |
+| cointegration tests run | 75 |
+| naive p < 0.05 | 45 |
+| BH-FDR q < 0.05 | 40 |
+| residual ADF p < 0.05 | 40 |
+| half-life in [2,60]d | 40 |
+| stability >= 50% | 14 |
+| selected | 14 |
 
 ## 2. Selection against known ground truth
 
@@ -37,16 +37,16 @@ scored rather than admired.
 
 | metric | value |
 |---|---|
-| selected | 18.0000 |
-| true_positives | 9.0000 |
-| decoys_selected | 0.0000 |
+| selected | 14 |
+| true_positives | 7 |
+| decoys_selected | 0 |
 | decoy_admission_rate | 0.0000 |
-| regime_break_selected | 3.0000 |
-| unclassified_selected | 6.0000 |
+| regime_break_selected | 3 |
+| unclassified_selected | 4 |
 | precision | 0.5000 |
-| recall | 0.3000 |
-| n_true_pairs | 30.0000 |
-| n_decoy_pairs | 12.0000 |
+| recall | 0.2333 |
+| n_true_pairs | 30 |
+| n_decoy_pairs | 12 |
 
 The decoy admission rate is the number that matters: these are
 pairs engineered to have *higher* return correlation than the true
@@ -62,30 +62,30 @@ position spans a re-fit.
 
 | window | train | validate | test | pairs | params | trades | net P&L |
 |---|---|---|---|---|---|---|---|
-| 0 | 2016-01-04..2019-01-03 | 2019-01-04..2020-01-03 | 2020-01-04..2021-01-03 | 18 | {"zscore_lookback": 90, "entry_z": 1.5, "exit_z": 1.0, "stop_z": 4.0, "max_holding_days": 60} | 177 | 1,190,951 |
-| 1 | 2017-01-04..2020-01-03 | 2020-01-04..2021-01-03 | 2021-01-04..2022-01-03 | 15 | {"zscore_lookback": 40, "entry_z": 2.0, "exit_z": 1.0, "stop_z": 4.0, "max_holding_days": 60} | 120 | 713,666 |
-| 2 | 2018-01-04..2021-01-03 | 2021-01-04..2022-01-03 | 2022-01-04..2023-01-03 | 8 | {"zscore_lookback": 60, "entry_z": 1.5, "exit_z": 0.5, "stop_z": 4.0, "max_holding_days": 60} | 81 | 913,034 |
-| 3 | 2019-01-04..2022-01-03 | 2022-01-04..2023-01-03 | 2023-01-04..2024-01-03 | 7 | {"zscore_lookback": 90, "entry_z": 1.5, "exit_z": 0.5, "stop_z": 4.0, "max_holding_days": 60} | 50 | 713,210 |
-| 4 | 2020-01-04..2023-01-03 | 2023-01-04..2024-01-03 | 2024-01-04..2025-01-03 | 7 | {"zscore_lookback": 60, "entry_z": 2.0, "exit_z": 0.5, "stop_z": 4.0, "max_holding_days": 60} | 38 | 732,576 |
-| 5 | 2021-01-04..2024-01-03 | 2024-01-04..2025-01-03 | 2025-01-04..2025-12-31 | 5 | {"zscore_lookback": 60, "entry_z": 2.0, "exit_z": 0.5, "stop_z": 4.0, "max_holding_days": 60} | 25 | 461,491 |
+| 0 | 2016-01-04..2019-01-03 | 2019-01-04..2020-01-03 | 2020-01-04..2021-01-03 | 14 | lb:90, entry:1.5, exit:1.0 | 139 | 981,554 |
+| 1 | 2017-01-04..2020-01-03 | 2020-01-04..2021-01-03 | 2021-01-04..2022-01-03 | 16 | lb:60, entry:1.5, exit:1.0 | 179 | 1,616,919 |
+| 2 | 2018-01-04..2021-01-03 | 2021-01-04..2022-01-03 | 2022-01-04..2023-01-03 | 13 | lb:90, entry:1.5, exit:0.5 | 100 | 1,309,004 |
+| 3 | 2019-01-04..2022-01-03 | 2022-01-04..2023-01-03 | 2023-01-04..2024-01-03 | 9 | lb:90, entry:1.5, exit:0.5 | 65 | 1,004,066 |
+| 4 | 2020-01-04..2023-01-03 | 2023-01-04..2024-01-03 | 2024-01-04..2025-01-03 | 10 | lb:90, entry:1.5, exit:0.5 | 79 | 1,736,584 |
+| 5 | 2021-01-04..2024-01-03 | 2024-01-04..2025-01-03 | 2025-01-04..2025-12-31 | 11 | lb:90, entry:2.0, exit:0.5 | 46 | 1,182,181 |
 
 ## 4. Aggregate performance (SYNTHETIC)
 
 | metric | value |
 |---|---|
-| n_days | 1,506 |
-| n_trades | 491 |
-| cumulative_return | 0.4725 |
-| cagr | 0.0668 |
-| annualized_volatility | 0.0185 |
-| sharpe | 3.5216 |
-| sortino | 6.3805 |
-| max_drawdown | -0.0102 |
-| calmar | 6.5303 |
-| hit_rate | 0.7902 |
-| profit_factor | 5.2910 |
-| avg_holding_days | 10.0305 |
-| turnover_annual | 15.3280 |
+| n_days | 1,507 |
+| n_trades | 608 |
+| cumulative_return | 0.7830 |
+| cagr | 0.1015 |
+| annualized_volatility | 0.0241 |
+| sharpe | 4.0353 |
+| sortino | 7.1919 |
+| max_drawdown | -0.0193 |
+| calmar | 5.2481 |
+| hit_rate | 0.8092 |
+| profit_factor | 7.6000 |
+| avg_holding_days | 10.3914 |
+| turnover_annual | 19.0179 |
 
 The Sharpe ratio here is an artifact of generating spreads from the
 same OU model the strategy assumes. It is reported for completeness and
@@ -98,13 +98,13 @@ walk-forward protocol.
 
 | configuration | pairs | trades | cum. return | Sharpe | max DD | peak gross % |
 |---|---|---|---|---|---|---|
-| Full pipeline (baseline) | 10 | 491 | 0.4725 | 3.52 | -0.0102 | 100.0 |
-| A: correlation only (no cointegration) | 20 | 342 | 0.1057 | 1.16 | -0.0177 | 104.7 |
-| A2: cointegration without FDR control | 10 | 505 | 0.4815 | 3.50 | -0.0102 | 100.0 |
-| B: no rolling stability screen | 20 | 876 | 0.8332 | 3.98 | -0.0208 | 103.8 |
-| C: gross of transaction costs | 10 | 491 | 0.5163 | 3.79 | -0.0100 | 100.0 |
-| D: rolling hedge ratio (vs static baseline) | 10 | 216 | 0.0327 | 0.23 | -0.0408 | 109.7 |
-| E: no risk limits | 10 | 492 | 0.4777 | 3.54 | -0.0102 | 110.6 |
+| Full pipeline (baseline) | 12 | 608 | 0.7830 | 4.04 | -0.0193 | 102.9 |
+| A: correlation only (no cointegration) | 20 | 305 | 0.0696 | 0.64 | -0.0552 | 115.1 |
+| A2: cointegration without FDR control | 12 | 641 | 0.7012 | 3.75 | -0.0193 | 102.9 |
+| B: no rolling stability screen | 19 | 779 | 1.1165 | 4.59 | -0.0110 | 102.9 |
+| C: gross of transaction costs | 12 | 663 | 0.8554 | 4.29 | -0.0186 | 102.9 |
+| D: rolling hedge ratio (vs static baseline) | 12 | 236 | -0.0974 | -0.67 | -0.1073 | 103.8 |
+| E: no risk limits | 12 | 608 | 0.7925 | 4.02 | -0.0192 | 106.1 |
 
 Hypotheses under test:
 
@@ -119,11 +119,11 @@ Hypotheses under test:
 
 | round-trip bps | Sharpe | cumulative return | trades | total costs |
 |---|---|---|---|---|
-| 0 | 3.79 | 0.5163 | 491 | 0 |
-| 2 | 3.61 | 0.4870 | 491 | 233,339 |
-| 5 | 3.34 | 0.4441 | 491 | 574,412 |
-| 10 | 3.16 | 0.3832 | 400 | 919,258 |
-| 20 | 2.50 | 0.2732 | 290 | 1,284,479 |
+| 0 | 4.29 | 0.8554 | 663 | 0 |
+| 2 | 4.12 | 0.8047 | 608 | 315,243 |
+| 5 | 3.87 | 0.7405 | 608 | 772,750 |
+| 10 | 3.44 | 0.6386 | 608 | 1,495,990 |
+| 20 | 2.64 | 0.4266 | 395 | 1,877,424 |
 
 Breakeven cost level: does not break even within the tested range.
 

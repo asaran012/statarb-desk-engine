@@ -123,8 +123,11 @@ def cmd_research(cfg: Config, **_):
 
 def cmd_backtest(cfg: Config, **kw):
     from .backtest.walkforward import run_walkforward
+    from .data.synthetic import GroundTruth
     panel = _panel(cfg)
-    res = run_walkforward(panel, cfg, verbose=True)
+    gt_path = Path(cfg.data.processed_dir) / "ground_truth.json"
+    ground_truth = GroundTruth.load(gt_path) if gt_path.exists() else None
+    res = run_walkforward(panel, cfg, ground_truth=ground_truth, verbose=True)
     out = Path(cfg.reporting.trades_dir)
     out.mkdir(parents=True, exist_ok=True)
     res.trades.to_csv(out / "trades.csv", index=False)
@@ -134,7 +137,42 @@ def cmd_backtest(cfg: Config, **kw):
         print(f"  {k:<28s}{v if isinstance(v,str) else f'{v:,.4f}' if isinstance(v,float) else f'{v:,}'}")
     print("-" * 60)
     print(f"  wrote {out/'trades.csv'} and {out/'equity.csv'}")
+    _write_report_inputs(cfg, res)
     return res
+
+
+def _write_report_inputs(cfg: Config, res) -> None:
+    """Persist the per-window artifacts `report` needs, straight off the
+    WalkForwardResult that just computed them. `report` used to read these
+    from files nothing wrote, so it silently rendered whatever a run months
+    ago had left on disk."""
+    out = Path(cfg.reporting.reports_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    w0 = res.windows[0]
+
+    rows = []
+    for w in res.windows:
+        win = w.window
+        rows.append({
+            "window": win.index,
+            "train": f"{win.train_start.date()}..{win.train_end.date()}",
+            "validate": f"{win.valid_start.date()}..{win.valid_end.date()}",
+            "test": f"{win.test_start.date()}..{win.test_end.date()}",
+            "n_pairs": len(w.selection.pairs),
+            "params": (f"lb:{w.chosen_params['zscore_lookback']}, "
+                      f"entry:{w.chosen_params['entry_z']}, "
+                      f"exit:{w.chosen_params['exit_z']}"),
+            "n_trades": len(w.test.trades),
+            "net_pnl": w.test.net_pnl,
+        })
+    pd.DataFrame(rows).to_csv(out / "windows.csv", index=False)
+    (out / "funnel.json").write_text(json.dumps(w0.selection.funnel, indent=2))
+    (out / "truth_score.json").write_text(
+        json.dumps(w0.truth_score or {}, indent=2, default=str))
+    (out / "walkforward_summary.json").write_text(
+        json.dumps(res.summary, indent=2, default=str))
+    w0.selection.pairs.to_csv(out / "selected_pairs_w0.csv", index=False)
+    w0.validation_grid.to_csv(out / "validation_grid.csv", index=False)
 
 
 def cmd_ablations(cfg: Config, **_):

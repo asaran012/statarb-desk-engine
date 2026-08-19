@@ -15,11 +15,11 @@ do not depend on the data being real.
 | data validation checks | 11 |
 | reconciliation break types | 6 |
 | monitoring checks | 29 |
-| engine speedup | 2.39x |
+| engine speedup | 6.83x |
 | walk-forward windows | 6 |
 | symbols | 60 |
-| cointegration tests per window | 78 |
-| research funnel | 1,770 possible pairs -> 78 cointegration tests -> 18 selected |
+| cointegration tests per window | 75 |
+| research funnel | 1,770 possible pairs -> 75 cointegration tests -> 14 selected |
 | tests passing | 73 |
 | failure scenarios detected | 12/12 |
 | decoy admission rate | 0.0000 |
@@ -28,11 +28,11 @@ do not depend on the data being real.
 
 | metric | synthetic value | real-market value |
 |---|---|---|
-| sharpe | 3.5216 | NOT YET MEASURED |
-| cagr | 0.0668 | NOT YET MEASURED |
-| cumulative_return | 0.4725 | NOT YET MEASURED |
-| max_drawdown | -0.0102 | NOT YET MEASURED |
-| hit_rate | 0.7902 | NOT YET MEASURED |
+| sharpe | 4.0353 | NOT YET MEASURED |
+| cagr | 0.1015 | NOT YET MEASURED |
+| cumulative_return | 0.7830 | NOT YET MEASURED |
+| max_drawdown | -0.0193 | NOT YET MEASURED |
+| hit_rate | 0.8092 | NOT YET MEASURED |
 
 **Do not put the synthetic Sharpe on a resume.** It was produced on
 spreads generated from an Ornstein-Uhlenbeck process, which is the
@@ -46,9 +46,9 @@ Each of these is backed by a measured number above.
 
 1. Built a statistical-arbitrage research platform in Python (48 modules, 73 tests): Engle-Granger cointegration with Benjamini-Hochberg FDR control across 1,770 candidate pairs, rolling-window stability screening, and a walk-forward harness with strict train/validate/test separation.
 
-2. Implemented a vectorised backtesting engine validated by 9 accounting invariants (equity-to-ledger reconciliation, cost non-negativity, pre-trade gross limits, execution-strictly-after-signal); profiling identified pandas scalar indexing as 36% of runtime, and a NumPy rewrite delivered a 2.39x speedup (433ms -> 181ms) with output verified bit-identical against the reference implementation.
+2. Implemented a vectorised backtesting engine validated by 9 accounting invariants (equity-to-ledger reconciliation, cost non-negativity, pre-trade gross limits, execution-strictly-after-signal); profiling identified pandas scalar indexing as the dominant cost, and a NumPy rewrite delivered a 6.83x speedup (460ms -> 67ms) with output verified bit-identical against the reference implementation.
 
-3. Built a desk monitoring layer with 11 data-quality checks and 6 trade-reconciliation break types, proven by a failure-injection harness in which 12/12 deliberately corrupted scenarios were detected; ablation showed correlation-only selection changed Sharpe from 3.52 to 1.16.
+3. Built a desk monitoring layer with 11 data-quality checks and 6 trade-reconciliation break types, proven by a failure-injection harness in which 12/12 deliberately corrupted scenarios were detected; ablation showed correlation-only selection changed Sharpe from 4.04 to 0.64.
 
 ## One-line project title
 

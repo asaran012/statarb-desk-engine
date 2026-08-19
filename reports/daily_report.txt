@@ -5,7 +5,7 @@ DATE  2020-12-31
 
 DATA
    symbols_received                        60
-   rows                               150,900
+   rows                               150,960
    duplicate_observations                   0
    null_prices                              0
    non_positive_prices                      0
@@ -19,8 +19,8 @@ DATA
    section status                        PASS
 
 STRATEGY
-   active_pairs                             3
-   monitored_pairs                         16
+   active_pairs                             5
+   monitored_pairs                         15
    new_signals                              0
    exits                                    0
    spread_beyond_4_sigma                    0
@@ -30,12 +30,12 @@ STRATEGY
 RISK
    gross_exposure_pct                    0.00
    net_exposure_pct                      0.00
-   current_drawdown_pct                  0.17
+   current_drawdown_pct                  0.91
    section status                        PASS
 
 TRADING
-   expected_orders                        340
-   executed_orders                        340
+   expected_orders                        336
+   executed_orders                        336
    missing_fills                            0
    unexpected_fills                         0
    duplicate_fills                          0
@@ -45,9 +45,9 @@ TRADING
    section status                        PASS
 
 RECONCILIATION
-   expected_positions                     340
-   actual_positions                       340
-   matched                                340
+   expected_positions                     336
+   actual_positions                       336
+   matched                                336
    total_breaks                             0
    section status                        PASS
 
@@ -57,9 +57,9 @@ OVERALL STATUS: PASS
 
 TRADE RECONCILIATION
 ----------------------------------------------------
-expected orders                          340
-executed orders                          340
-matched                                  340
+expected orders                          336
+executed orders                          336
+matched                                  336
   missing_execution                        0
   unexpected_execution                     0
   duplicate_execution                      0

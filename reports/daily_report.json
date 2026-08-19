@@ -14,7 +14,7 @@
       {
         "check": "rows",
         "status": "PASS",
-        "value": 150900,
+        "value": 150960,
         "threshold": null,
         "detail": ""
       },
@@ -93,14 +93,14 @@
       {
         "check": "active_pairs",
         "status": "PASS",
-        "value": 3,
+        "value": 5,
         "threshold": null,
         "detail": ""
       },
       {
         "check": "monitored_pairs",
         "status": "PASS",
-        "value": 16,
+        "value": 15,
         "threshold": null,
         "detail": ""
       },
@@ -151,7 +151,7 @@
       {
         "check": "current_drawdown_pct",
         "status": "PASS",
-        "value": 0.17,
+        "value": 0.91,
         "threshold": 10.0,
         "detail": ""
       }
@@ -160,14 +160,14 @@
       {
         "check": "expected_orders",
         "status": "PASS",
-        "value": 340,
+        "value": 336,
         "threshold": null,
         "detail": ""
       },
       {
         "check": "executed_orders",
         "status": "PASS",
-        "value": 340,
+        "value": 336,
         "threshold": null,
         "detail": ""
       },
@@ -218,21 +218,21 @@
       {
         "check": "expected_positions",
         "status": "PASS",
-        "value": 340,
+        "value": 336,
         "threshold": null,
         "detail": ""
       },
       {
         "check": "actual_positions",
         "status": "PASS",
-        "value": 340,
+        "value": 336,
         "threshold": null,
         "detail": ""
       },
       {
         "check": "matched",
         "status": "PASS",
-        "value": 340,
+        "value": 336,
         "threshold": null,
         "detail": ""
       },

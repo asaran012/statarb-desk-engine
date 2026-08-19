@@ -7,24 +7,31 @@ pairs trading.
 
 > ## ⚠️ Read this before reading any number in this repository
 >
-> **All performance figures here were produced on synthetic data.** The build
-> environment had no market-data egress (Yahoo and Stooq both return HTTP 403),
-> so the pipeline was exercised against a labelled synthetic market generated
-> from an Ornstein-Uhlenbeck process.
+> **The production strategy has now been run on real market data — and it
+> never placed a trade.** 69 real, liquid, sector-diversified US equities,
+> 2017–2026 (166,842 rows, Yahoo Finance), through the exact shipped pipeline
+> with zero threshold changes: **0 pairs survived cointegration + BH-FDR +
+> ADF + half-life + stability screening, in 6 of 6 walk-forward windows.**
 >
-> The strategy assumes spreads mean-revert. The generator makes spreads that
-> mean-revert. **Measuring profitability under your own assumptions tests the
-> implementation, not the hypothesis.** The Sharpe ratio below is an artifact
-> of that setup and is not a performance claim.
+> That is not a bug. It was independently reproduced, the BH-FDR
+> implementation matches `statsmodels` exactly, and 0–1 raw cointegration
+> hits against ~68 candidates/window is unsurprising under strict
+> multiple-testing control on a diversified large-cap universe.
 >
-> What the synthetic run *does* establish: the accounting reconciles, the
-> invariants hold, the research funnel recovers pairs it was designed to
-> recover and rejects decoys it was designed to reject, and the monitoring
-> layer fires on deliberately injected faults. Those claims survive the data
-> being fake.
+> **Consequence: there is no real-market Sharpe, CAGR, drawdown, or hit rate
+> for the production strategy** — not because it wasn't measured, but
+> because the strategy found nothing to trade. The synthetic performance
+> numbers below are unchanged from before and remain what they always were:
+> a check that the engine correctly rewards a hand-built mean-reverting
+> process, not a performance claim. A few non-production ablations
+> (cointegration/FDR deliberately disabled, run only to exercise the trading
+> engine on real fills) did trade on real data — and lost money. See the
+> real-data ablation table below.
 >
-> Real-market metrics are marked `NOT YET MEASURED`. See
-> [`reports/research_audit.md`](reports/research_audit.md).
+> Full writeup:
+> [`reports/final_audit/final_validation_report.md`](reports/final_audit/final_validation_report.md)
+> and the safe/unsafe metric split in
+> [`reports/final_audit/resume_verified_metrics.md`](reports/final_audit/resume_verified_metrics.md).
 
 ---
 
@@ -63,7 +70,7 @@ All figures below came from an actual run. Nothing is estimated.
 
 | metric | measured |
 |---|---|
-| backtest engine speedup | **2.39×** (433ms → 181ms), output **bit-identical** to the reference implementation |
+| backtest engine speedup | **7.49×** (643ms → 86ms) on real data, **7.46×** on synthetic, both **bit-identical** to the reference implementation, 15-run benchmark script in `scripts/benchmark_real_engine.py` |
 | tests | **73 passing** |
 | accounting invariants | **9/9 pass** on every window |
 | data validation checks | 11 |
@@ -95,16 +102,41 @@ Under a complete null, 78 tests at α = 0.05 would produce ~3.9 false positives.
 
 ### Performance — SYNTHETIC, not a claim
 
-| metric | synthetic value | real-market |
+| metric | synthetic value | real-market (production config) |
 |---|---|---|
-| Sharpe | 3.52 | `NOT YET MEASURED` |
-| CAGR | 6.68% | `NOT YET MEASURED` |
-| cumulative return | 47.3% | `NOT YET MEASURED` |
-| max drawdown | −1.02% | `NOT YET MEASURED` |
-| hit rate | 79.0% | `NOT YET MEASURED` |
-| trades | 491 over 1,506 days | — |
+| Sharpe | 3.52 | `N/A — 0 pairs selected` |
+| CAGR | 6.68% | `N/A — 0 pairs selected` |
+| cumulative return | 47.3% | `N/A — 0 pairs selected` |
+| max drawdown | −1.02% | `N/A — 0 pairs selected` |
+| hit rate | 79.0% | `N/A — 0 pairs selected` |
+| trades | 491 over 1,506 days | 0, in 6/6 walk-forward windows |
 
 ![equity curve](reports/figures/01_equity_curve.png)
+
+### Real-data result: the production strategy didn't trade
+
+69 real large-cap US equities across 10 sectors, 2017–2026, run through the
+production config with no threshold changes: **0 pairs survived the
+cointegration + BH-FDR + ADF + half-life + stability funnel in every one of
+6 walk-forward windows.** There is consequently no production trade blotter
+and no real Sharpe/CAGR/drawdown to compute — this is a genuine negative
+result, not a gap in measurement.
+
+Three non-production ablations (selection screens deliberately weakened,
+solely to give the engine real fills to process) did produce trades. None
+made money:
+
+| configuration | windows with pairs | trades | cumulative return | Sharpe | max DD |
+|---|---|---|---|---|---|
+| A: correlation only (no cointegration) | 6/6 | 398 | −8.58% | −0.42 | −11.40% |
+| A2: cointegration, no FDR control | 3/6 | 28 | −0.59% | −0.26 | −1.37% |
+| B: no stability screen | 1/6 | 10 | +1.35% | 1.79 | −0.23% |
+
+B's single window / 10 trades is too thin to read as anything. Taken
+together, these say the engine handles real fills correctly, and that
+loosening the statistical screens does not reveal a hidden profitable
+strategy — if anything it trades more and loses. See
+[`reports/real/real_walkforward_summary.json`](reports/real/real_walkforward_summary.json).
 
 ### Ablations — including the ones that went wrong
 
@@ -197,25 +229,30 @@ pytest                            # 73 tests
 
 ```bash
 pip install '.[market]'
-# set data.source: yahoo in config/default.yaml
-python -m statarb.cli download
-make all
+python -m statarb.cli download --config config/real.yaml
+python -m statarb.cli validate --config config/real.yaml
+python -m statarb.cli backtest --config config/real.yaml
 ```
 
-The `YahooSource` adapter is implemented but **was never executed** — there was
-no network path to test it. Treat its first run as unverified.
+`config/real.yaml` and `data/real_universe.csv` (69 hand-picked, sector-
+diversified large-cap tickers, chosen before any download or backtest) are
+the exact config used for the real-data audit above. The `YahooSource`
+adapter has now been exercised end-to-end (69/69 symbols, 2017–2026,
+166,842 rows) — see
+[`reports/final_audit/real_data_summary.json`](reports/final_audit/real_data_summary.json).
 
 ## Documentation
 
 | document | contents |
 |---|---|
+| [`reports/final_audit/final_validation_report.md`](reports/final_audit/final_validation_report.md) | the real-data audit: what was run, bugs found and fixed, overall verdict |
+| [`reports/final_audit/resume_verified_metrics.md`](reports/final_audit/resume_verified_metrics.md) | every metric (synthetic and real), split into safe-to-claim / needs-context / do-not-claim |
 | [`reports/research_audit.md`](reports/research_audit.md) | leakage, bias and validity audit; where evidence contradicted hypothesis |
 | [`docs/methodology.md`](docs/methodology.md) | the statistical procedure, stage by stage |
 | [`docs/architecture.md`](docs/architecture.md) | module map and design decisions |
 | [`docs/project_decisions.md`](docs/project_decisions.md) | every bug found, why it mattered, what changed |
 | [`docs/interview_guide.md`](docs/interview_guide.md) | how to describe this without overclaiming |
 | [`docs/limitations.md`](docs/limitations.md) | what would have to be true for the results to be trusted |
-| [`reports/resume_metrics.md`](reports/resume_metrics.md) | metrics split into safe-to-claim and not |
 
 ## Layout
 

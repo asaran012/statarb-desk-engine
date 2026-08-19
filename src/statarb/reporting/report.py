@@ -155,7 +155,8 @@ def write_research_summary(path: Path, *, funnel: Dict, truth: Dict,
 
 def write_resume_metrics(path: Path, *, engineering: Dict, funnel: Dict,
                          truth: Dict, walkforward: Dict, ablations: pd.DataFrame,
-                         test_count: int, failure_caught: str) -> Path:
+                         test_count: int, failure_caught: str,
+                         engine_bench: Optional[Dict] = None) -> Path:
     L = ["# Resume Metrics", "",
          "Every number here came from an actual run. Numbers are split into two",
          "groups, because only one group is safe to put on a resume.", "",
@@ -194,6 +195,14 @@ def write_resume_metrics(path: Path, *, engineering: Dict, funnel: Dict,
             ab_line = (f"ablation showed correlation-only selection changed Sharpe "
                        f"from {float(base['sharpe'].iloc[0]):.2f} to "
                        f"{float(corr['sharpe'].iloc[0]):.2f}")
+    bench = engine_bench or {}
+    if bench.get("speedup"):
+        bench_line = (f"a NumPy rewrite delivered a {bench['speedup']}x speedup "
+                      f"({bench['reference_ms']:.0f}ms -> {bench['fast_ms']:.0f}ms) "
+                      "with output verified bit-identical against the reference "
+                      "implementation")
+    else:
+        bench_line = "engine speedup: NOT MEASURED"
     L += [
         "1. Built a statistical-arbitrage research platform in Python "
         f"({engineering.get('modules', 0)} modules, {test_count} tests): "
@@ -206,9 +215,7 @@ def write_resume_metrics(path: Path, *, engineering: Dict, funnel: Dict,
         f"{engineering.get('accounting invariants', 0)} accounting invariants "
         "(equity-to-ledger reconciliation, cost non-negativity, pre-trade gross "
         "limits, execution-strictly-after-signal); profiling identified pandas "
-        "scalar indexing as 36% of runtime, and a NumPy rewrite delivered a "
-        "2.39x speedup (433ms -> 181ms) with output verified bit-identical "
-        "against the reference implementation.",
+        f"scalar indexing as the dominant cost, and {bench_line}.",
         "",
         "3. Built a desk monitoring layer with "
         f"{engineering.get('data validation checks', 0)} data-quality checks and "

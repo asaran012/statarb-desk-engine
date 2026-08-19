@@ -1,12 +1,12 @@
 {
-  "selected": 18.0,
-  "true_positives": 9.0,
-  "decoys_selected": 0.0,
+  "selected": 14,
+  "true_positives": 7,
+  "decoys_selected": 0,
   "decoy_admission_rate": 0.0,
-  "regime_break_selected": 3.0,
-  "unclassified_selected": 6.0,
+  "regime_break_selected": 3,
+  "unclassified_selected": 4,
   "precision": 0.5,
-  "recall": 0.3,
-  "n_true_pairs": 30.0,
-  "n_decoy_pairs": 12.0
+  "recall": 0.23333333333333334,
+  "n_true_pairs": 30,
+  "n_decoy_pairs": 12
 }
