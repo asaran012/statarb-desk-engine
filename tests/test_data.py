@@ -1,9 +1,8 @@
 """Data validation must *detect* faults, not merely run without error."""
 import numpy as np
 import pandas as pd
-import pytest
 
-from statarb.data.calendar import expected_sessions, trading_calendar
+from statarb.data.calendar import trading_calendar
 from statarb.data.loader import log_returns, to_wide
 from statarb.data.validator import validate_panel
 

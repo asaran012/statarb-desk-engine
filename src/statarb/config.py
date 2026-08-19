@@ -10,7 +10,7 @@ swept on validation data only".
 from __future__ import annotations
 
 from pathlib import Path
-from typing import List, Literal
+from typing import List, Literal, Optional
 
 import yaml
 from pydantic import BaseModel, Field, model_validator
@@ -25,6 +25,7 @@ class DataConfig(BaseModel):
     end_date: str
     n_symbols: int = 60
     price_field: str = "adjusted_close"
+    universe_file: Optional[Path] = None
 
 
 class ValidationConfig(BaseModel):

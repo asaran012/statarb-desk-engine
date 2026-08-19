@@ -10,9 +10,8 @@ build breaks.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Callable, List, Optional
+from typing import List
 
-import numpy as np
 import pandas as pd
 
 from ..monitoring.data_health import data_health_check

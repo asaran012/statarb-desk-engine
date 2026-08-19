@@ -1,5 +1,4 @@
 """Reconciliation must catch every break type it claims to catch."""
-import numpy as np
 import pandas as pd
 import pytest
 

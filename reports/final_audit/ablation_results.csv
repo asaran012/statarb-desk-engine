@@ -1,0 +1,8 @@
+key,experiment,selection_mode,status,error,windows_with_pairs,pairs_selected_avg,trades,cumulative_return,cagr,sharpe,sortino,max_drawdown,hit_rate,total_costs,gross_pnl,net_pnl
+baseline,Full pipeline (baseline),full,FAILED,walk-forward produced no tradeable windows,,,,,,,,,,,,
+A_correlation_only,A: correlation only (no cointegration),correlation_only,ok,,6.0,20.0,398.0,-0.0857571943867288,-0.015840042960092227,-0.4219268734656125,-0.588989616811411,-0.11402709851956072,0.5201005025125628,201278.94456560802,-656567.2639151984,-857846.2084808064
+A_no_fdr,A2: cointegration without FDR control,no_fdr,ok,,3.0,1.0,28.0,-0.0058648220460532086,-0.001960115287248154,-0.2645710193113592,-0.3484403613547714,-0.013743059126990365,0.5,16855.228114611335,-41792.992345918945,-58648.22046053027
+B_no_stability,B: no rolling stability screen,no_stability,ok,,1.0,1.0,10.0,0.013504756998927059,0.013664827916778144,1.7925302027520535,3.0233491765061578,-0.002346057254828837,0.9,6062.156327663532,141109.72631693294,135047.56998926942
+C_gross_no_costs,C: gross of transaction costs,full,FAILED,walk-forward produced no tradeable windows,,,,,,,,,,,,
+D_rolling_beta,D: rolling hedge ratio (vs static baseline),full,FAILED,walk-forward produced no tradeable windows,,,,,,,,,,,,
+E_no_risk_limits,E: no risk limits,full,FAILED,walk-forward produced no tradeable windows,,,,,,,,,,,,

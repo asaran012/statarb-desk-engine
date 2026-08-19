@@ -1,0 +1,132 @@
+{
+  "engine_benchmark_real_data": {
+    "dataset": {
+      "symbols": 69,
+      "sessions": 2418,
+      "pairs": 20,
+      "date_range": [
+        "2017-01-03",
+        "2026-08-17"
+      ]
+    },
+    "equivalence": {
+      "trades_ref": 856,
+      "trades_fast": 856,
+      "trade_ledger_equal": true,
+      "equity_curve_equal": true,
+      "exit_reasons_equal": true,
+      "max_abs_equity_diff": 0.0,
+      "max_abs_pnl_diff": 0.0
+    },
+    "timing": {
+      "warmup_runs": 5,
+      "measured_runs": 10,
+      "reference": {
+        "min_s": 0.6407305829925463,
+        "median_s": 0.6433249580004485,
+        "mean_s": 0.6486153164994903,
+        "std_s": 0.009745536673098984,
+        "all_runs_s": [
+          0.6635169999935897,
+          0.6408689579984639,
+          0.6452741249959217,
+          0.6438786249927944,
+          0.6617356670030858,
+          0.6407305829925463,
+          0.6422222910041455,
+          0.6427712910081027,
+          0.6426178330002585,
+          0.6625367920059944
+        ]
+      },
+      "fast": {
+        "min_s": 0.08557237501372583,
+        "median_s": 0.08587439650000306,
+        "mean_s": 0.08687923350371421,
+        "std_s": 0.002382146843968306,
+        "all_runs_s": [
+          0.08710283400432672,
+          0.08621070800290909,
+          0.08581608399981633,
+          0.08557237501372583,
+          0.08593270900018979,
+          0.08572762500261888,
+          0.08560991700505838,
+          0.08575612500135321,
+          0.09335658300551586,
+          0.08770737500162795
+        ]
+      },
+      "speedup_median": 7.491464094311575
+    }
+  },
+  "engine_benchmark_synthetic_data": {
+    "dataset": {
+      "symbols": 60,
+      "sessions": 2515,
+      "pairs": 20,
+      "date_range": [
+        "2016-01-04",
+        "2025-12-31"
+      ]
+    },
+    "equivalence": {
+      "trades_ref": 947,
+      "trades_fast": 947,
+      "trade_ledger_equal": true,
+      "equity_curve_equal": true,
+      "exit_reasons_equal": true,
+      "max_abs_equity_diff": 0.0,
+      "max_abs_pnl_diff": 0.0
+    },
+    "timing": {
+      "warmup_runs": 5,
+      "measured_runs": 10,
+      "reference": {
+        "min_s": 0.6617702090006787,
+        "median_s": 0.6667669999951613,
+        "mean_s": 0.6734866499973577,
+        "std_s": 0.011904177889551391,
+        "all_runs_s": [
+          0.6813768329884624,
+          0.6617702090006787,
+          0.6633719579986064,
+          0.6666440000117291,
+          0.6886219579901081,
+          0.6658495839947136,
+          0.6666558339929907,
+          0.6770538749988191,
+          0.6966440830001375,
+          0.666878165997332
+        ]
+      },
+      "fast": {
+        "min_s": 0.08894370800408069,
+        "median_s": 0.08938745850173291,
+        "mean_s": 0.08974527070095065,
+        "std_s": 0.00071707723982337,
+        "all_runs_s": [
+          0.09045720800349955,
+          0.09049729100661352,
+          0.0892414169939002,
+          0.08916191599564627,
+          0.08923799998592585,
+          0.08894370800408069,
+          0.08953350000956561,
+          0.08910037500027101,
+          0.09066037500451785,
+          0.09061891700548586
+        ]
+      },
+      "speedup_median": 7.459290275964554
+    }
+  },
+  "duckdb_vs_pandas_real_data": {
+    "rows": 166842,
+    "repeats": 10,
+    "pandas_seconds": 0.0145,
+    "duckdb_seconds": 0.0118,
+    "speedup_duckdb_vs_pandas": 1.236
+  },
+  "note": "Both engine benchmarks measured fresh on this machine (Apple M5 Pro, 24GB) during this audit: 5 warmup + 10 measured runs each, bit-identical trade ledgers and equity curves confirmed. The previously documented 2.39x speedup (433ms->181ms) could not be reproduced or verified -- it predates this audit, was measured on unknown/undocumented hardware, and is superseded by these numbers."
+}

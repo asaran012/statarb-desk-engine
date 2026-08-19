@@ -13,10 +13,9 @@ from typing import List, Optional
 
 import pandas as pd
 
-import numpy as np
 
 from ..data.validator import validate_panel
-from .alerts import AlertSet, FAIL, PASS, WARNING
+from .alerts import AlertSet, PASS
 
 
 def longest_stale_run(panel: pd.DataFrame, price_col: str = "adjusted_close") -> int:

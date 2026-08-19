@@ -1,0 +1,48 @@
+{
+  "by_category": {
+    "data": 12,
+    "strategy": 6,
+    "risk": 3,
+    "trading": 8
+  },
+  "total": 29,
+  "checks": {
+    "data": [
+      "symbols_received",
+      "rows",
+      "duplicate_observations",
+      "null_prices",
+      "non_positive_prices",
+      "impossible_ohlc",
+      "stale_prices",
+      "longest_stale_run_days",
+      "extreme_return_alerts",
+      "missing_symbols",
+      "symbols_missing_sessions",
+      "calendar_mismatch"
+    ],
+    "strategy": [
+      "active_pairs",
+      "monitored_pairs",
+      "new_signals",
+      "exits",
+      "spread_beyond_4_sigma",
+      "pairs_without_zscore"
+    ],
+    "risk": [
+      "gross_exposure_pct",
+      "net_exposure_pct",
+      "current_drawdown_pct"
+    ],
+    "trading": [
+      "expected_orders",
+      "executed_orders",
+      "missing_fills",
+      "unexpected_fills",
+      "duplicate_fills",
+      "quantity_mismatches",
+      "symbol_mismatches",
+      "price_deviations"
+    ]
+  }
+}

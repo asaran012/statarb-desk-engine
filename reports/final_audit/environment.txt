@@ -1,0 +1,23 @@
+OS: Darwin 25.5.0 arm64
+CPU: Apple M5 Pro
+Physical cores: 15  Logical cores: 15
+Memory: 24.0 GB
+Python (system): Python 3.14.6
+Python (.venv): Python 3.14.6
+Repository root: /Users/saranay12/Documents/statarb-desk-engine
+Git commit at audit start: 27db6585a090ba39e6be210569fb0ce01849645a
+Git repo initialized during this audit: yes (project had no .git before)
+
+Key installed package versions:
+duckdb              1.5.5
+matplotlib          3.11.1
+numpy               2.5.2
+pandas              3.0.5
+pyarrow             25.0.1
+pydantic            2.13.4
+pytest              9.1.1
+PyYAML              6.0.3
+ruff                0.16.3
+scipy               1.18.0
+statsmodels         0.14.6
+yfinance            1.6.0

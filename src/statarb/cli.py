@@ -61,16 +61,28 @@ def cmd_synth(cfg: Config, **_) -> pd.DataFrame:
 
 def cmd_download(cfg: Config, **_):
     from .data.downloader import make_source
-    print("NOTE: the build environment had no market-data egress; this path is")
-    print("implemented but was never exercised. Failures here are expected to be")
-    print("network or API-shape related, not logic errors.")
-    src = make_source(cfg.data.source, cfg)
-    panel = src.fetch()
     from .data.loader import save_panel
+    if not cfg.data.universe_file:
+        raise ValueError(
+            "data.universe_file is not set; real downloads need an explicit "
+            "(symbol, sector) list, e.g. config/real.yaml + data/real_universe.csv")
+    uni = pd.read_csv(cfg.data.universe_file)
+    symbols = sorted(uni["symbol"].unique().tolist())
+    sector_of = dict(zip(uni["symbol"], uni["sector"]))
+    print(f"downloading {len(symbols)} symbols {cfg.data.start_date}..{cfg.data.end_date} "
+          f"from source={cfg.data.source!r}")
+    src = make_source(cfg.data.source, seed=cfg.seed)
+    panel = src.fetch(symbols, cfg.data.start_date, cfg.data.end_date)
+    panel["sector"] = panel["symbol"].map(sector_of)
+    got = sorted(panel["symbol"].unique().tolist())
+    missing = sorted(set(symbols) - set(got))
+    if missing:
+        print(f"  WARNING: {len(missing)} requested symbols returned no rows: {missing}")
     out = Path(cfg.data.processed_dir)
     out.mkdir(parents=True, exist_ok=True)
     save_panel(panel, out / "panel.parquet")
-    print(f"downloaded {len(panel):,} rows -> {out/'panel.parquet'}")
+    print(f"downloaded {len(panel):,} rows, {len(got)}/{len(symbols)} symbols "
+          f"-> {out/'panel.parquet'}")
 
 
 def cmd_validate(cfg: Config, **_):

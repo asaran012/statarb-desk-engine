@@ -19,7 +19,6 @@ re-centres anyway, but keeping alpha makes the raw spread plot interpretable.
 
 from __future__ import annotations
 
-import numpy as np
 import pandas as pd
 
 

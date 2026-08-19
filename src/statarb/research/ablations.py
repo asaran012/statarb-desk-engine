@@ -24,7 +24,6 @@ import pandas as pd
 
 from ..backtest.walkforward import run_walkforward
 from ..config import Config
-from ..risk.metrics import performance_summary
 
 
 @dataclass

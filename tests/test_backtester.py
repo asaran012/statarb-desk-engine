@@ -35,7 +35,6 @@ def test_no_same_bar_execution(wide, selection, config):
     assert len(base.trades) > 0
     t0 = base.trades.iloc[0]
     sym = t0["symbol_a"]
-    sig_date = pd.Timestamp(t0["entry_date"]) - pd.Timedelta(days=1)
     close2 = close.copy()
     idx = close2.index[close2.index < pd.Timestamp(t0["entry_date"])]
     if len(idx):

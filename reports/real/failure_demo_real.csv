@@ -1,0 +1,13 @@
+scenario,injected,detected_by,expected,observed,result,detail
+missing_symbol,dropped all rows for AAPL,DATA / missing_symbols,FAIL,FAIL,CAUGHT,AAPL absent from feed
+duplicate_rows,re-appended 25 rows of the feed,DATA / duplicate_observations,FAIL,FAIL,CAUGHT,25 duplicated symbol-date keys
+stale_feed,froze 30 consecutive closes for ABT,DATA / longest_stale_run_days,FAIL,FAIL,CAUGHT,vendor feed stopped updating
+corrupt_price,multiplied one ADBE close by 4,DATA / extreme_return_alerts,WARNING,WARNING,CAUGHT,bad tick / unadjusted split
+negative_price,set one close to -5.0,DATA / non_positive_prices,FAIL,FAIL,CAUGHT,log price would be undefined
+missing_fill,removed one broker fill,RECONCILIATION / missing_execution,FAIL,FAIL,CAUGHT,1 unfilled order(s) -> naked leg
+duplicate_fill,double-reported one fill,RECONCILIATION / duplicate_execution,FAIL,FAIL,CAUGHT,1 duplicate(s) -> doubled position
+quantity_mismatch,halved one fill quantity,RECONCILIATION / quantity_mismatch,WARNING,WARNING,CAUGHT,1 partial fill -> unhedged residual
+symbol_mismatch,changed one fill's symbol,RECONCILIATION / symbol_mismatch,FAIL,FAIL,CAUGHT,1 fat-finger -> wrong instrument held
+price_deviation,filled one order 20% away from reference,RECONCILIATION / price_deviation,WARNING,WARNING,CAUGHT,1 bad fill -> hidden slippage
+drawdown_breach,marked the book down 15% from its peak,RISK / current_drawdown_pct,FAIL,FAIL,CAUGHT,loss limit breached
+gross_breach,set gross exposure to 140% of equity,RISK / gross_exposure_pct,FAIL,FAIL,CAUGHT,leverage limit breached

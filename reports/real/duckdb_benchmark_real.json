@@ -1,0 +1,7 @@
+{
+  "rows": 166842,
+  "repeats": 10,
+  "pandas_seconds": 0.0145,
+  "duckdb_seconds": 0.0118,
+  "speedup_duckdb_vs_pandas": 1.236
+}

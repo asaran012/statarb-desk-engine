@@ -15,7 +15,7 @@ from typing import Dict, List, Optional
 import numpy as np
 import pandas as pd
 
-from .alerts import AlertSet, FAIL, PASS, WARNING, combine
+from .alerts import AlertSet, FAIL, PASS, combine
 from .reconciliation import ReconciliationReport
 
 

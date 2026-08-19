@@ -3,7 +3,6 @@
 These are the tests that would catch a silently wrong backtest. A P&L number
 that does not reconcile to the equity curve is not a P&L number.
 """
-import numpy as np
 import pandas as pd
 import pytest
 

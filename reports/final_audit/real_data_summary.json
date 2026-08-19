@@ -1,0 +1,39 @@
+{
+  "requested_symbols": 69,
+  "downloaded_symbols": 69,
+  "symbols_removed_insufficient_data": 0,
+  "first_trading_date": "2017-01-03",
+  "last_trading_date": "2026-08-17",
+  "n_years_span": 9.62,
+  "n_trading_sessions": 2418,
+  "raw_rows": 166842,
+  "processed_rows": 166842,
+  "missing_observations": 0,
+  "duplicate_observations": 0,
+  "stale_price_warnings_ge5d": 0,
+  "longest_stale_run_days_observed": 3,
+  "extreme_return_warnings_abs_gt_0.25": 12,
+  "calendar_mismatch_sessions": 2,
+  "calendar_mismatch_detail": "both are documented one-off NYSE closures not modeled by the hand-rolled calendar: 2018-12-05 (National Day of Mourning, G.H.W. Bush) and 2025-01-09 (National Day of Mourning, J. Carter)",
+  "parquet_size_bytes": 4697149,
+  "duckdb_size_bytes": 274432,
+  "sectors": [
+    "Communication_Services",
+    "Consumer_Discretionary",
+    "Consumer_Staples",
+    "Energy",
+    "Financials",
+    "Healthcare",
+    "Industrials",
+    "Materials",
+    "Technology",
+    "Utilities"
+  ],
+  "universe_source_file": "data/real_universe.csv",
+  "universe_selection_method": "static, hand-picked before any download or backtest: large-cap liquid US equities diversified across 10 GICS-style sectors, chosen for long trading history back to 2017; not selected or filtered based on any backtest result",
+  "data_source": "Yahoo Finance via yfinance 1.6.0, auto_adjust=False, adjusted_close used for all returns",
+  "known_bias_caveats": [
+    "Survivorship bias: universe is current, liquid large caps -- any company that failed or was delisted since 2017 is absent by construction. This is a real limitation, not detectable from the data itself.",
+    "Adjusted-close restatement: vendors retroactively restate history after corporate actions, so re-running this download next month may not reproduce bit-identical prices."
+  ]
+}

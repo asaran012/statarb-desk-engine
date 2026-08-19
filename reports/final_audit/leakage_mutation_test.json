@@ -1,0 +1,28 @@
+{
+  "cutoff": "2022-06-30",
+  "pair": "BAC/JPM",
+  "all_pass": true,
+  "checks": {
+    "rolling_hedge_ratio": {
+      "PASS": true,
+      "n_compared": 1383,
+      "max_abs_diff": 0.0
+    },
+    "zscore": {
+      "PASS": true,
+      "n_compared": 1383
+    },
+    "target": {
+      "PASS": true,
+      "n_compared": 1383
+    },
+    "backtest_equity_pre_cutoff": {
+      "PASS": true,
+      "n_compared": 1383
+    },
+    "backtest_trades_pre_cutoff": {
+      "PASS": true,
+      "n_compared": 125
+    }
+  }
+}

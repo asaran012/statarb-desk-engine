@@ -6,7 +6,6 @@ import glob
 import json
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 
 from .config import Config

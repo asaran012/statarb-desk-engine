@@ -18,13 +18,12 @@ Everything here consumes training data only.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import List
 
 import numpy as np
 import pandas as pd
 
 from .cointegration import engle_granger
-from .hedge_ratio import static_ols_hedge_ratio
 from .mean_reversion import half_life
 
 

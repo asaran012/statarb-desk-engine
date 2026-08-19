@@ -1,0 +1,89 @@
+{
+  "production_full_status": "FAILED",
+  "production_full_error": "walk-forward produced no tradeable windows",
+  "ablation_summary": [
+    {
+      "key": "baseline",
+      "experiment": "Full pipeline (baseline)",
+      "selection_mode": "full",
+      "status": "FAILED",
+      "error": "walk-forward produced no tradeable windows"
+    },
+    {
+      "key": "A_correlation_only",
+      "experiment": "A: correlation only (no cointegration)",
+      "selection_mode": "correlation_only",
+      "status": "ok",
+      "windows_with_pairs": 6,
+      "pairs_selected_avg": 20.0,
+      "trades": 398,
+      "cumulative_return": -0.0857571943867288,
+      "cagr": -0.015840042960092227,
+      "sharpe": -0.4219268734656125,
+      "sortino": -0.588989616811411,
+      "max_drawdown": -0.11402709851956072,
+      "hit_rate": 0.5201005025125628,
+      "total_costs": 201278.94456560802,
+      "gross_pnl": -656567.2639151984,
+      "net_pnl": -857846.2084808064
+    },
+    {
+      "key": "A_no_fdr",
+      "experiment": "A2: cointegration without FDR control",
+      "selection_mode": "no_fdr",
+      "status": "ok",
+      "windows_with_pairs": 3,
+      "pairs_selected_avg": 1.0,
+      "trades": 28,
+      "cumulative_return": -0.0058648220460532086,
+      "cagr": -0.001960115287248154,
+      "sharpe": -0.2645710193113592,
+      "sortino": -0.3484403613547714,
+      "max_drawdown": -0.013743059126990365,
+      "hit_rate": 0.5,
+      "total_costs": 16855.228114611335,
+      "gross_pnl": -41792.992345918945,
+      "net_pnl": -58648.22046053027
+    },
+    {
+      "key": "B_no_stability",
+      "experiment": "B: no rolling stability screen",
+      "selection_mode": "no_stability",
+      "status": "ok",
+      "windows_with_pairs": 1,
+      "pairs_selected_avg": 1.0,
+      "trades": 10,
+      "cumulative_return": 0.013504756998927059,
+      "cagr": 0.013664827916778144,
+      "sharpe": 1.7925302027520535,
+      "sortino": 3.0233491765061578,
+      "max_drawdown": -0.002346057254828837,
+      "hit_rate": 0.9,
+      "total_costs": 6062.156327663532,
+      "gross_pnl": 141109.72631693294,
+      "net_pnl": 135047.56998926942
+    },
+    {
+      "key": "C_gross_no_costs",
+      "experiment": "C: gross of transaction costs",
+      "selection_mode": "full",
+      "status": "FAILED",
+      "error": "walk-forward produced no tradeable windows"
+    },
+    {
+      "key": "D_rolling_beta",
+      "experiment": "D: rolling hedge ratio (vs static baseline)",
+      "selection_mode": "full",
+      "status": "FAILED",
+      "error": "walk-forward produced no tradeable windows"
+    },
+    {
+      "key": "E_no_risk_limits",
+      "experiment": "E: no risk limits",
+      "selection_mode": "full",
+      "status": "FAILED",
+      "error": "walk-forward produced no tradeable windows"
+    }
+  ],
+  "cost_sensitivity_note": "full-mode cost sensitivity not run: 0 pairs selected in every window makes it independent of cost level (see production_full_status)"
+}

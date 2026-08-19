@@ -1,0 +1,70 @@
+==============================================
+STATARB DAILY DESK HEALTH REPORT
+==============================================
+DATE  2022-01-03
+
+DATA
+   symbols_received                        69
+   rows                               166,842
+   duplicate_observations                   0
+   null_prices                              0
+   non_positive_prices                      0
+   impossible_ohlc                          0
+   stale_prices                             0
+   longest_stale_run_days                   3  <- consecutive identical closes for one symbol
+ ! extreme_return_alerts                   12
+   missing_symbols                          0
+   symbols_missing_sessions                 0
+ ! calendar_mismatch                        2
+   section status                     WARNING
+
+STRATEGY
+   active_pairs                             8
+   monitored_pairs                         20
+   new_signals                              1
+   exits                                    0
+   spread_beyond_4_sigma                    0
+   pairs_without_zscore                     0
+   section status                        PASS
+
+RISK
+   gross_exposure_pct                    0.00
+   net_exposure_pct                     -0.00
+   current_drawdown_pct                  2.21
+   section status                        PASS
+
+TRADING
+   expected_orders                        328
+   executed_orders                        328
+   missing_fills                            0
+   unexpected_fills                         0
+   duplicate_fills                          0
+   quantity_mismatches                      0
+   symbol_mismatches                        0
+   price_deviations                         0
+   section status                        PASS
+
+RECONCILIATION
+   expected_positions                     328
+   actual_positions                       328
+   matched                                328
+   total_breaks                             0
+   section status                        PASS
+
+==============================================
+OVERALL STATUS: WARNING
+==============================================
+
+TRADE RECONCILIATION
+----------------------------------------------------
+expected orders                          328
+executed orders                          328
+matched                                  328
+  missing_execution                        0
+  unexpected_execution                     0
+  duplicate_execution                      0
+  quantity_mismatch                        0
+  symbol_mismatch                          0
+  price_deviation                          0
+----------------------------------------------------
+status                                  PASS

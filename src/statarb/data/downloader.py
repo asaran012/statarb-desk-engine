@@ -86,9 +86,7 @@ class YahooSource(DataSource):
             sub.columns = [str(c).lower().replace(" ", "_") for c in sub.columns]
             sub = sub.rename(columns={"adj_close": "adjusted_close"})
             sub["symbol"] = sym
-            frames.append(sub[[c for c in SCHEMA if c in sub.columns] + ["symbol"]]
-                          .loc[:, ~pd.Index(SCHEMA).duplicated()]
-                          if False else sub)
+            frames.append(sub)
         if not frames:
             raise RuntimeError("Yahoo returned no usable rows for the requested symbols")
         out = pd.concat(frames, ignore_index=True)

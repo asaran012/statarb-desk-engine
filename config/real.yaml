@@ -1,0 +1,77 @@
+seed: 20260818
+
+data:
+  source: yahoo
+  raw_dir: data/raw_real
+  processed_dir: data/processed_real
+  duckdb_path: data/processed_real/statarb.duckdb
+  start_date: "2017-01-03"
+  end_date: "2026-08-18"
+  universe_file: data/real_universe.csv
+  price_field: adjusted_close
+
+validation:
+  stale_price_days: 5
+  extreme_return_abs: 0.25
+  max_missing_pct: 0.02
+  ohlc_tolerance: 1.0e-8
+
+universe:
+  min_history_days: 750
+  min_average_dollar_volume: 5_000_000
+  max_missing_pct: 0.02
+  min_price: 5.0
+
+research:
+  correlation_threshold: 0.60
+  cointegration_alpha: 0.05
+  adf_alpha: 0.05
+  fdr_alpha: 0.05
+  stability_windows: 6
+  stability_window_days: 252
+  min_stability_pass_rate: 0.50
+  half_life_min_days: 2.0
+  half_life_max_days: 60.0
+  max_pairs_per_window: 20
+  restrict_to_same_sector: true
+  hedge_ratio_method: static
+  rolling_beta_window: 120
+
+strategy:
+  zscore_lookback: 60
+  entry_z: 2.0
+  exit_z: 0.5
+  stop_z: 4.0
+  max_holding_days: 60
+
+execution:
+  delay_days: 1
+  fill_price: close
+  commission_bps: 1.0
+  slippage_bps: 2.0
+
+risk:
+  initial_capital: 10_000_000
+  max_pair_gross: 0.10
+  max_symbol_exposure: 0.15
+  max_portfolio_gross: 1.00
+  trading_days_per_year: 252
+  risk_free_rate: 0.0
+
+walkforward:
+  train_years: 3
+  validation_years: 1
+  test_years: 1
+  step_years: 1
+
+param_grid:
+  zscore_lookback: [20, 40, 60, 90]
+  entry_z: [1.5, 2.0, 2.5]
+  exit_z: [0.0, 0.5, 1.0]
+
+cost_sensitivity_bps: [0, 2, 5, 10, 20]
+
+reporting:
+  figures_dir: reports/real/figures
+  trades_dir: reports/real/trades
+  reports_dir: reports/real

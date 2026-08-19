@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from statarb.signals.spread import build_spread, spread_dollar_legs
+from statarb.signals.spread import spread_dollar_legs
 from statarb.signals.strategy import Position, generate_signals
 from statarb.signals.zscore import rolling_zscore
 

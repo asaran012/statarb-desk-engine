@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import datetime as _dt
 from functools import lru_cache
-from typing import List
+from typing import List, Optional
 
 import pandas as pd
 
@@ -44,9 +44,18 @@ def _nth_weekday(year: int, month: int, weekday: int, n: int) -> _dt.date:
     return last - _dt.timedelta(days=offset)
 
 
-def _observed(d: _dt.date) -> _dt.date:
+def _observed(d: _dt.date, *, saturday_shifts: bool = True) -> Optional[_dt.date]:
+    """NYSE convention: a holiday falling on Sunday is observed the following
+    Monday; a holiday falling on Saturday is observed the preceding Friday --
+    EXCEPT New Year's Day, whose preceding Friday is December 31 of the prior
+    year, which NYSE always keeps open for year-end settlement. Checked
+    against real trading data across 2017-2026: the exchange was closed on
+    the Friday before a Saturday July 4th (2020-07-03) and before a Saturday
+    Christmas (2021-12-24), but open on 2021-12-31 despite 2022-01-01 (New
+    Year's Day) falling on a Saturday. ``saturday_shifts=False`` (used only
+    for New Year's Day) suppresses the Friday shift for that one holiday."""
     if d.weekday() == 5:
-        return d - _dt.timedelta(days=1)
+        return d - _dt.timedelta(days=1) if saturday_shifts else None
     if d.weekday() == 6:
         return d + _dt.timedelta(days=1)
     return d
@@ -55,7 +64,7 @@ def _observed(d: _dt.date) -> _dt.date:
 @lru_cache(maxsize=64)
 def market_holidays(year: int) -> frozenset:
     hol = {
-        _observed(_dt.date(year, 1, 1)),                    # New Year's Day
+        _observed(_dt.date(year, 1, 1), saturday_shifts=False),  # New Year's Day
         _nth_weekday(year, 1, 0, 3),                        # MLK Jr.
         _nth_weekday(year, 2, 0, 3),                        # Washington's Birthday
         easter_sunday(year) - _dt.timedelta(days=2),        # Good Friday
@@ -67,7 +76,7 @@ def market_holidays(year: int) -> frozenset:
     }
     if year >= 2022:
         hol.add(_observed(_dt.date(year, 6, 19)))           # Juneteenth
-    return frozenset(hol)
+    return frozenset(d for d in hol if d is not None)
 
 
 def trading_calendar(start: str, end: str) -> pd.DatetimeIndex:
